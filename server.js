@@ -43,7 +43,9 @@ app.get('/', (req, res) => {
 app.post('/msg', (req, res) => {
     console.log('posted messages ---', req.body);
     client.db('clio_skeleton').collection('test').insertOne(req.body);
-    res.status(200);
+    setTimeout(() => {
+      res.sendStatus(200);
+    }, 40000);
 });
 
 app.get('/msg', async (req, res) => {
@@ -59,6 +61,7 @@ app.get('/msg', async (req, res) => {
     return {
       message: obj.message,
       id: obj.id,
+      timestamp: obj.timestamp,
     }
   });
   console.log('got from db', messages);
